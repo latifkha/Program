@@ -1,0 +1,47 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+// Function to print calendar of the given year
+void printCalendar(int year)
+{
+    int daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    // Check for leap year
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
+        daysInMonth[2] = 29;
+
+    // Print calendar
+    for (int month = 1; month <= 12; month++) {
+        cout << "Month: " << setw(2) << month << endl;
+        cout << " S  M  T  W  T  F  S" << endl;
+
+        // Get the starting day of the month
+        int d = (1 + (13 * (month + 1)) / 5 + (year % 100) + (year % 100) / 4 + (year / 100) / 4 + 5 * (year / 100)) % 7;
+
+        // Print the calendar
+        for (int i = 0; i < d; i++)
+            cout << "   ";
+        for (int i = 1; i <= daysInMonth[month]; i++) {
+            cout << setw(2) << i << " ";
+            if ((i + d) % 7 == 0)
+                cout << endl;
+        }
+        cout << endl;
+    }
+}
+
+int main()
+{
+    int year;
+
+    // Get the year
+    cout << "Enter year: ";
+    cin >> year;
+
+    // Print calendar
+    printCalendar(year);
+
+    return 0;
+}
